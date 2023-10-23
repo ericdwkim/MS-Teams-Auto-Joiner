@@ -1,7 +1,7 @@
 import sys
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 from time import sleep
 from datetime import datetime
 import json
@@ -43,8 +43,12 @@ def get_driver_options():
                                         "profile.default_content_setting_values.notifications": 1
                                         })
     return opt
+# TODO: define chromedriver_executable_path
+browser = webdriver.Chrome(
+            service=Service(executable_path=chromedriver_executable_path),
+            options=get_driver_options()
+        )
 
-browser = webdriver.Chrome(ChromeDriverManager().install(), options=get_driver_options())
 
 
 def wait_and_find_ele_by_id(html_id, timeout=timeOutDelay):
